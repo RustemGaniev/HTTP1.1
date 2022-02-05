@@ -9,10 +9,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-public class MyCallable implements Callable<Integer> {
+public class MyCallable implements Callable {
 
     @Override
-    public Integer call() throws InterruptedException {
+    public ServerSocket call() {
         final var validPaths = List.of("/index.html", "/spring.svg", "/spring.png", "/resources.html", "/styles.css", "/app.js", "/links.html", "/forms.html", "/classic.html", "/events.html", "/events.js");
         try (final var serverSocket = new ServerSocket(9999)) {
 
@@ -86,5 +86,8 @@ public class MyCallable implements Callable<Integer> {
 
         return null;
     }
-    }
+
+
+
+}
 

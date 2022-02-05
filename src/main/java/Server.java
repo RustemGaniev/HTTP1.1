@@ -1,20 +1,20 @@
 
 import java.net.ServerSocket;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 
 public class Server {
 
-    public ServerSocket serverStart() {
+    public ServerSocket serverStart() throws ExecutionException, InterruptedException {
+        int poolsNumber = 64;
+      
+        final ExecutorService threadPool = Executors.newFixedThreadPool(poolsNumber);
 
 
-        ExecutorService threadPool = Executors.newFixedThreadPool(64);
-        for(int i = 0; i < 64; i++){
-            Callable<Integer> myCallable[i] = new MyCallable();
-            final Future<Integer> task[i] = threadPool.submit(myCallable[i]);
-        }
+            Callable<ServerSocket> myCallable = new MyCallable();
+            Future<ServerSocket> task = threadPool.submit(myCallable);
+            return task.get();
+
     }
-    }
+}
